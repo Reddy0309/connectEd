@@ -8,7 +8,7 @@ import MentorPage from './pages/MentorPage'; // Blank Page for now
 import TrialPage from './pages/trialPage';
 import LoginPage1 from './pages/mentorLogin';
 import Attendance from './pages/attendance';
-import AddAttendance from './pages/addattendance';
+import AddAttendance from './pages/AddAttendance';
 import AdminLogin from './pages/AdminLogin';
 
 function App() {
