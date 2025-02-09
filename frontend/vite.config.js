@@ -7,7 +7,7 @@ export default defineConfig({
   envPrefix: "REACT_APP_",
   build: {
     rollupOptions: {
-      external: ['jspdf'], // Add jspdf to external to prevent build errors
+      external: ['jspdf', 'jspdf-autotable'], // Add jspdf to external to prevent build errors
     },
   },
   plugins: [react(),
