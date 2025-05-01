@@ -1,0 +1,68 @@
+//mentorlogin.jsx
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/api";
+
+function LoginPage1() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await loginUser(formData);
+      console.log("Login API Response:", data);
+      if (!data.token || !data.email) {
+        throw new Error("Invalid login response: Missing token or email");
+      }
+      localStorage.setItem("token", data.token); // Store the token in localStorage
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("user", JSON.stringify({ email: data.email }));
+
+      console.log("Stored email:", localStorage.getItem("email"));
+      alert("Login successful");
+      navigate("/trial");
+    } catch (error) {
+      console.error(error);
+      alert("Error logging in");
+    }
+  };
+
+  return (
+    <div>
+      <h2>Login as a mentor</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+export default LoginPage1;
